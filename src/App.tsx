@@ -5,7 +5,6 @@ import SearchBar from "./components/searchBar";
 import CategoriesCarousel from "./components/categoriesCarousel";
 import ShoppingCart from "./components/shoppingCart";
 import ItemsGrid from "./components/itemsGrid";
-import colors from "./constants/colors";
 import categoriesData from "./mockData/categories.json";
 import itemsData from "./mockData/products.json";
 import { Product } from "./types/globalTypes";

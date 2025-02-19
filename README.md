@@ -1,27 +1,89 @@
-# React + TypeScript + Vite
+# React App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TLDR: cd to project folder and run 'npm run dev'
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Follow these steps to set up and run the project.
 
-## Expanding the ESLint configuration
+### Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Make sure you have the following installed:
 
-- Configure the top-level `parserOptions` property like this:
+- [Node.js](https://nodejs.org/) (Latest LTS version recommended)
+- npm (comes with Node.js)
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+### Installation
+
+1. Clone the repository:
+
+   ```sh
+   git clone https://github.com/your-username/your-repo.git
+   cd your-repo
+   ```
+
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+
+### Running the Application
+
+To start the development server, run:
+
+```sh
+npm run dev
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Environment Variables
+
+If your project requires environment variables, create a `.env` file in the root directory and add necessary configurations:
+
+```sh
+REACT_APP_API_URL=http://localhost:5000
+```
+
+### Project Structure
+
+```
+├── src
+│   ├── components  # Reusable components
+│   ├── pages       # Page components
+│   ├── assets      # Images, styles, etc.
+│   ├── hooks       # Custom React hooks
+│   ├── utils       # Utility functions
+│   ├── context     # React Context API files
+│   ├── services    # API calls and services
+│   ├── App.tsx     # Main application file
+│   └── main.tsx    # Entry point
+├── public          # Static assets
+├── package.json    # Project metadata and scripts
+├── README.md       # Project documentation
+└── .env            # Environment variables (ignored by Git)
+```
+
+### Additional Scripts
+
+- **Build the project**:
+  ```sh
+  npm run build
+  ```
+- **Run tests**:
+  ```sh
+  npm test
+  ```
+- **Lint and format code**:
+  ```sh
+  npm run lint
+  ```
+
+### Troubleshooting
+
+- If you encounter issues with dependencies, try running:
+  ```sh
+  rm -rf node_modules package-lock.json && npm install
+  ```
+
+### License
+
+This project is licensed under the [MIT License](LICENSE).
