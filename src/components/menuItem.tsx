@@ -13,7 +13,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ image, name, price, onClick }) => {
     <Card
       onClick={onClick}
       sx={{
-        width: 150,
+        width: 165,
         height: 150,
         borderRadius: "12px",
         overflow: "hidden",

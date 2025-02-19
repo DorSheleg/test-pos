@@ -36,12 +36,34 @@ const App: React.FC = () => {
     });
   };
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+
+    // Check if query matches a category name
+    const matchedCategory = categoriesData.find((category) =>
+      category.name.toLowerCase().includes(query.toLowerCase())
+    );
+
+    if (matchedCategory) {
+      setSelectedCategory(matchedCategory.id);
+    } else {
+      // Reset category selection when searching for a product
+      setSelectedCategory(0); // Assuming 0 means "all categories"
+    }
+  };
+
   const handleRemoveFromCart = (itemId: number) => {
     setCartItems((prev) => prev.filter((item) => item.id !== itemId));
   };
 
   const handleCheckout = () => {
-    alert("Proceeding to checkout");
+    alert("לא הספקתי :)");
+  };
+
+  // ** New function to clear the cart **
+  const clearCart = () => {
+    setCartItems([]);
   };
 
   return (
@@ -54,10 +76,7 @@ const App: React.FC = () => {
         }}
       >
         <Grid item xs={8}>
-          <SearchBar
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
+          <SearchBar value={searchQuery} onChange={handleSearchChange} />
           <CategoriesCarousel
             categories={categoriesData}
             selectedCategory={selectedCategory}
@@ -66,6 +85,7 @@ const App: React.FC = () => {
           <ItemsGrid
             items={updatedItemsData as Product[]}
             selectedCategory={selectedCategory}
+            searchQuery={searchQuery}
             onItemClick={handleAddToCart}
           />
         </Grid>
@@ -74,6 +94,7 @@ const App: React.FC = () => {
             items={cartItems}
             onRemove={handleRemoveFromCart}
             onCheckout={handleCheckout}
+            clearCart={clearCart} // ** Pass clearCart to ShoppingCart **
           />
         </Grid>
       </Grid>

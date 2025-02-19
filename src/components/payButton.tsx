@@ -5,14 +5,16 @@ import colors from "../constants/colors";
 interface PayButtonProps {
   price: number;
   onClick: () => void;
+  disabled?: boolean;
 }
 
-const PayButton: React.FC<PayButtonProps> = ({ price, onClick }) => {
+const PayButton: React.FC<PayButtonProps> = ({ price, onClick, disabled }) => {
   return (
     <Button
       fullWidth
       variant="contained"
       onClick={onClick}
+      disabled={disabled}
       sx={{
         backgroundColor: colors.primary,
         color: "white",
