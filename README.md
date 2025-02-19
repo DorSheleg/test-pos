@@ -1,6 +1,9 @@
 # React App
 
-TLDR: cd to project folder and run 'npm run dev'
+TLDR: 
+1. cd to project folder 
+2. run 'npm i'
+3. run 'npm run dev'
 
 ## Getting Started
 
