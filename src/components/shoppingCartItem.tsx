@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Typography, IconButton } from "@mui/material";
+import { Box, Typography, IconButton, Badge } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import colors from "../constants/colors";
 
@@ -11,6 +11,7 @@ interface ShoppingCartItemProps {
   image: string;
   barcode: string;
   onRemove: (id: number) => void;
+  rtl?: boolean;
 }
 
 const ShoppingCartItem: React.FC<ShoppingCartItemProps> = ({
@@ -21,6 +22,7 @@ const ShoppingCartItem: React.FC<ShoppingCartItemProps> = ({
   image,
   barcode,
   onRemove,
+  rtl = true,
 }) => {
   const [showDelete, setShowDelete] = useState(false);
 
@@ -32,16 +34,17 @@ const ShoppingCartItem: React.FC<ShoppingCartItemProps> = ({
         justifyContent: "space-between",
         padding: 1,
         borderBottom: `1px solid ${colors.light}`,
+        backgroundColor: showDelete ? colors.error : "transparent",
+        transition: "background-color 0.3s",
+        flexDirection: rtl ? "row" : "row-reverse",
       }}
     >
-      <Typography variant="body1" sx={{ fontWeight: 600 }}>
-        ₪{price.toFixed(2)}
-      </Typography>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-        <Typography variant="body2">{name}</Typography>
-        <Typography variant="caption" color={colors.secondary}>
-          {barcode}
-        </Typography>
+      <Badge
+        badgeContent={quantity}
+        color="success"
+        sx={{ cursor: "pointer" }}
+        onClick={() => setShowDelete(!showDelete)}
+      >
         <Box
           component="img"
           src={image}
@@ -50,16 +53,54 @@ const ShoppingCartItem: React.FC<ShoppingCartItemProps> = ({
             width: 40,
             height: 40,
             borderRadius: 1,
+            border: `1px solid ${colors.light}`,
             cursor: "pointer",
-            position: "relative",
+            transition: "transform 0.2s",
+            transform: showDelete ? "translateX(-40px)" : "none",
           }}
-          onClick={() => setShowDelete(!showDelete)}
         />
+      </Badge>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: rtl ? "flex-start" : "flex-end",
+          gap: 0.5,
+          textAlign: rtl ? "right" : "left",
+        }}
+      >
+        <Typography
+          variant="body2"
+          sx={{
+            color: showDelete ? "white" : "black",
+            fontWeight: 600,
+            fontSize: "20px",
+          }}
+        >
+          {name}
+        </Typography>
+        <Typography
+          variant="caption"
+          color={showDelete ? "white" : colors.secondary}
+          fontSize={"18px"}
+        >
+          {`מק"ט: ${barcode}`}
+        </Typography>
       </Box>
+      <Typography
+        variant="body1"
+        sx={{ fontWeight: 600, color: showDelete ? "white" : "black" }}
+      >
+        ₪{price.toFixed(2)}
+      </Typography>
       {showDelete && (
         <IconButton
           onClick={() => onRemove(id)}
-          sx={{ backgroundColor: colors.error, color: "white" }}
+          sx={{
+            backgroundColor: "white",
+            color: colors.error,
+            borderRadius: 1,
+          }}
         >
           <DeleteIcon />
         </IconButton>

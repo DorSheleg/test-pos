@@ -1,7 +1,7 @@
 const colors = {
   primary: "#34AA54", // Green (matches the checkout button)
   secondary: "#64748B", // Grey-blue
-  background: "#FFFFFF", // White
+  background: "#F6F6F6", // White
   text: "#000000", // Black
   error: "#E20000", // Red (for delete icon)
   warning: "#E07706", // Orange

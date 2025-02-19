@@ -1,8 +1,8 @@
-import React from "react";
-import { Card, Typography, IconButton, Box } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import React, { useEffect, useState } from "react";
+import { Card, Typography, Box } from "@mui/material";
 import colors from "../constants/colors";
 import PayButton from "./payButton";
+import ShoppingCartItem from "./shoppingCartItem";
 import { Product } from "../types/globalTypes";
 
 interface ShoppingCartProps {
@@ -16,7 +16,13 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
   onRemove,
   onCheckout,
 }) => {
-  const total = items.reduce(
+  const [cartItems, setCartItems] = useState<Product[]>(items);
+
+  useEffect(() => {
+    setCartItems(items);
+  }, [items]);
+
+  const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
@@ -25,52 +31,37 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
     <>
       <Card
         sx={{
-          backgroundColor: colors.background,
+          backgroundColor: "white",
           padding: 2,
           borderRadius: "12px",
           minHeight: "75vh",
         }}
       >
         <Typography
-          variant="h6"
-          sx={{ color: colors.primary, fontWeight: 600, marginBottom: 2 }}
+          variant="h4"
+          sx={{
+            color: colors.primary,
+            fontWeight: 600,
+            marginBottom: 2,
+            textAlign: "right",
+            fontSize: "28px",
+          }}
         >
           סל קניות
         </Typography>
         <Box>
-          {items.map((item) => (
-            <Box
+          {cartItems.map((item) => (
+            <ShoppingCartItem
               key={item.id}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                padding: 1,
-                borderBottom: `1px solid ${colors.light}`,
-              }}
-            >
-              <Typography variant="body1" sx={{ fontWeight: 600 }}>
-                ₪{item.price.toFixed(2)}
-              </Typography>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Typography variant="body2">{item.name}</Typography>
-                <Typography variant="caption" color={colors.secondary}>
-                  {item.barcode}
-                </Typography>
-                <Box
-                  component="img"
-                  src={item.image_url}
-                  alt={item.name}
-                  sx={{ width: 40, height: 40, borderRadius: 1 }}
-                />
-              </Box>
-              <IconButton
-                onClick={() => onRemove(item.id)}
-                sx={{ backgroundColor: colors.error, color: "white" }}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </Box>
+              id={item.id}
+              name={item.name}
+              price={item.price}
+              quantity={item.quantity}
+              image={item.image_url}
+              barcode={item.barcode}
+              onRemove={onRemove}
+              rtl={true} // Ensure RTL alignment
+            />
           ))}
         </Box>
       </Card>
@@ -80,6 +71,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
           justifyContent: "space-between",
           alignItems: "center",
           marginTop: 2,
+          flexDirection: "row-reverse", // Align PayButton to the right
         }}
       >
         <PayButton price={total} onClick={onCheckout} />

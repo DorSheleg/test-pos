@@ -51,7 +51,7 @@ const App: React.FC = () => {
       <Grid
         container
         sx={{
-          backgroundColor: colors.background,
+          backgroundColor: "white",
         }}
       >
         <Grid item xs={8}>

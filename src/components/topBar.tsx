@@ -11,6 +11,7 @@ const TopBar: React.FC = () => {
         backgroundColor: colors.background,
         boxShadow: "none",
         borderBottom: `1px solid ${colors.light}`,
+        direction: "ltr",
       }}
     >
       <Toolbar
